@@ -1,0 +1,152 @@
+// @media (max-width: 1220px) {
+//   .hpImages,
+//   .gotImages {
+//     width: 300px;
+//     height: 300px;
+//   }
+//   button {
+//     padding: 10px;
+//   }
+//   .individualGotCharacter,
+//   .individualHpCharacter{
+//       min-height: 350px;
+//   }
+// }
+
+// @media (max-width: 1050px) {
+//   .heartIcon {
+//     width: 300px;
+//     height: 300px;
+//   }
+//   .outing .outingSuggestions ul li {
+//     display: block;
+//     height: auto;
+//     img {
+//       margin-left: 20%;
+//     }
+//   }
+// }
+
+// @media (max-width: 915px) {
+//   .introduction {
+//     width: 80%;
+//   }
+//   .hpImages,
+//   .gotImages {
+//     width: 250px;
+//     height: 250px;
+//   }
+//   button {
+//     font-size: 1.5rem;
+//   }
+//   .message h3 {
+//     font-size: 3rem;
+//   }
+//   .outing .outingSuggestions ul li {
+//     img {
+//       margin-left: 15%;
+//     }
+//   }
+// }
+
+// @media (max-width: 810px) {
+//   .hpImages,
+//   .gotImages {
+//     width: 220px;
+//     height: 220px;
+//   }
+//   .outing .outingSuggestions ul li img {
+//     margin-left: 10%;
+//   }
+// }
+
+// @media (max-width: 768px) {
+//   h2 {
+//     font-size: 3rem;
+//   }
+//   main {
+//     min-height: 60vh;
+//   }
+//   .heartWrapper h2 {
+//     left: 35%;
+//   }
+//   .outing .outingSuggestions ul li img {
+//     margin-left: 0;
+//   }
+//   .heartIcon {
+//     width: 200px;
+//     height: 200px;
+//   }
+//   .heartWrapper h2 {
+//     font-size: 3rem;
+//     left: 40%;
+//   }
+//   .message h3 {
+//     font-size: 2.5rem;
+//   }
+//   .introduction p {
+//     font-size: 1.7rem;
+//   }
+// }
+
+// @media (max-width: 650px) {
+//   .gridContainer {
+//     margin: 0 auto;
+//     grid-template-columns: 1fr;
+//     grid-template-rows: repeat(6, min-content);
+//     gap: 5px;
+//     grid-template-areas:
+//       "introduction"
+//       "got"
+//       "heart"
+//       "hp"
+//       "message"
+//       "outing";
+//   }
+//   button {
+//     display: block;
+//   }
+//   .heartWrapper h2 {
+//     left: 45%;
+//   }
+//   .outing {
+//     .title {
+//      font-size: 4rem;
+//    }
+//    .outingSuggestions {
+//       display: flex;
+//       justify-content: center;
+//      ul {
+//       display: block;
+//       li {
+//         width: 100%;
+//         display: flex;
+//         flex-direction: column;
+//         .restaurantInfo {
+//           display: flex;
+//           flex-direction: column;
+//           text-align: center;
+//         }
+//       }
+//      }
+//    }
+//   }
+// }
+
+// @media (max-width: 375px) {
+//   header {
+//     min-height: 7vh;
+//     h1 {
+//       font-size: 5rem;
+//     }
+//   }
+//   .outing {
+//     .title {
+//      font-size: 3rem;
+//    }
+//   }
+//   footer {
+//     min-height: 2vh;
+//     font-size: 1.2rem;
+//   }
+// }
