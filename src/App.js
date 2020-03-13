@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./styles/App.css";
 import QueryScreen from './QueryScreen';
 import Header from './Header';
-import Footer from "./Footer.js";
 import DisplayScreen from "./DisplayScreen";
 
 class App extends Component {
@@ -40,7 +39,7 @@ class App extends Component {
       imageClickedInfo: data,
       overlayVisible: true
     })
-    
+
   }
 
   render() {
