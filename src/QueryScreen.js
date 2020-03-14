@@ -152,6 +152,7 @@ class QueryScreen extends Component {
             
         }).catch((error) => {
             console.log(error);
+            this.props.userSelected({})
         })
     }
 
@@ -194,6 +195,7 @@ class QueryScreen extends Component {
 
         }).catch((error) => {
             console.log(error);
+            this.props.userSelected({})
         })
     }
 
@@ -315,7 +317,10 @@ class QueryScreen extends Component {
             console.log(combinedIds);
             
             sendData(combinedIds)
-        });
+        }).catch((error) => {
+            console.log(error);
+            this.props.userSelected({})
+        })
 
         const sendData = (data) => {
             this.props.userSelected(data)
@@ -356,9 +361,6 @@ class QueryScreen extends Component {
                             ?
                                 <ul>
                                     {this.state.collections.map((item, index) => {
-                                        // convert all to lowercase and remove spaces(will use this value as query to api)
-                                        let valueItem = item.toLowerCase().split(" ").join("")
-                                        console.log(index);
                                         return(
                                             <li onClick={this.handleItemClick}
                                             id={`listItem${index}`}>{item}</li>
@@ -372,23 +374,6 @@ class QueryScreen extends Component {
                         </div>
                         <button>Search</button>
                     </form>
-    
-                    {/* render the images to the page */}
-                    {/* <ul>
-                        {this.state.imageUrls.map((image) => {
-                            return (
-                                <li>
-                                    <img
-                                        src={image}
-                                        // id={gifObject.id}
-                                        // onClick={this.handleGifClick} 
-                                        alt=""
-                                        />
-                                </li>
-                            )
-                        })
-                        }
-                    </ul> */}
                 </div>
             </div>
         )

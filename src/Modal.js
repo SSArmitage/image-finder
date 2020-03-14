@@ -4,46 +4,33 @@ class Modal extends Component {
     constructor() {
         super();
         this.state = {
-            clickedImageInfo: {}
+            clickedImageInfo: {},
+            exitModal: false
         }
     }
 
     componentDidMount() {
-        console.log(this.props.displayImageInfo);
-
-        // const overlay = document.querySelector('.display')
-        // console.log(overlay);
-        // overlay.classList.add('overlay')
-        // console.log(classOverlay);
-        // const bodyElement = document.querySelector('body')
-        // bodyElement.classList.add('noScroll')
-        
+        console.log(this.props.displayImageInfo);        
         this.setState({
             clickedImageInfo: this.props.displayImageInfo
         })
     }
 
-    componentDidUpdate(prevProps) {
-        if (this.props.displayImageInfo !== prevProps.displayImageInfo) {
-            console.log(`I was different....`);
-            
-        }
+    handleModalClick = () => {
+        console.log("I clicked the modal!!!!!");
+        // this.setState({
+        //     exitModal: true
+        // })
+        this.props.closeModal()
     }
 
     render() {
-        // const name = this.state.clickedImageInfo.urls
-        
-        // let url;
-        // for (let item in name) {
-        //     if (item === 'small') {
-        //         console.log(name[item]);
-        //         url = name[item]
-        //     } 
-        // }
-        
         return (
             <div className="overlay">
-                <div className="modalContainer">
+                <div 
+                className="modalContainer"
+                onClick={this.handleModalClick}
+                >
                     <div className="modal">
                         <div className="modalImage">
                             <img src={this.props.displayImageInfo.urls.small}></img>

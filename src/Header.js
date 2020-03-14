@@ -44,12 +44,6 @@ class Header extends Component {
                 imageObjectLength: objectLength
             })
         } 
-
-        // else {
-        //     this.setState({
-        //         clickedImageInfo: {}
-        //     })
-        // }
     }
 
     handleQuery = (event) => {
@@ -133,21 +127,6 @@ class Header extends Component {
                 query: this.state.userQuery,
             }
         }).then((data) => {
-            // console.log(data.data.results);
-
-            // let imagesToDisplay = data.data.results.map((item) => {
-            //     return item.urls.small
-            // })
-
-            // console.log(imagesToDisplay);
-            // put all the images in state (so that they can be rendered onto the page)
-            // after the urls are in state, call the function that tells App.js that the user has selected the search variables (causing the Display.js to render)
-            // this.setState({
-            //     imageUrls: imagesToDisplay
-            // }, () => {
-            //     this.props.userSelected(imagesToDisplay)
-            // })
-
             this.props.userSelected(data.data.results)
 
         }).catch((error) => {
@@ -178,37 +157,20 @@ class Header extends Component {
                 collections: totalId
             }
         }).then((data) => {
-            console.log(data);
-            // let imagesToDisplay = data.data.results.map((item) => {
-            //     return item.urls.small
-            // })
-            // console.log(imagesToDisplay);
-            // put all the images in state (so that they can be rendered onto the page)
-            // this.setState({
-            //     imageUrls: imagesToDisplay
-            // }, () => {
-            //     this.props.userSelected(imagesToDisplay)
-            // })
-
             this.props.userSelected(data.data.results)
         }).catch((error) => {
             console.log(error);
+            this.props.userSelected({})
         })
     }
 
     getDataCollection = () => {
-        // console.log(this.props.userSelected());
-
         // grab the collection chosen by the user
         let selectedCollection = this.state.selectedCollection
-        console.log(selectedCollection);
         // grab the ids associated with that collection
         let idsToSearch = this.state.collectionIds[`${selectedCollection}`]
-        console.log(idsToSearch);
-
         // iterate over each collection id and make an api call to grab the associated images
         let promiseArray = []
-        let combinedIds = []
         idsToSearch.forEach((id) => {
             let promise = axios({
                 method: 'get',
@@ -219,20 +181,7 @@ class Header extends Component {
                     per_page: 1,
                 }
             })
-
-            // console.log(promise);
-
             promiseArray.push(promise)
-
-            // .then((data) => {
-            //     console.log(data);
-            //     // add the urls for each image (for the current collection) to the combinedIds array
-            //      data.data.forEach((item) => {
-            //         combinedIds.push(item.urls.small)
-            //     })
-            // }).catch((error) => {
-            //     console.log(error);
-            // })
         })
 
         console.log(promiseArray);
@@ -240,32 +189,28 @@ class Header extends Component {
 
         Promise.all(promiseArray)
             .then(function (data) {
-                //   console.log(data);
                 let combinedIds = []
                 data.forEach((imageArray) => {
                     imageArray.data.forEach((image) => {
                         combinedIds.push(image)
                     })
                 })
-                // console.log(combinedIds);
-
-                // console.log(`Hello`);
-
-                // console.log(this.props.userSelected);
-
                 sendData(combinedIds)
-
-
-                // setTimeout(() => {
-                //     this.setState({
-                //         imageUrls: combinedIds
-                //     })
-                // }, 3000);
-            });
+            }).catch((error) => {
+                console.log(error);
+                this.props.userSelected({})
+            })
 
         const sendData = (data) => {
             this.props.userSelected(data)
         }
+    }
+
+    handleCloseModal = () => {
+        console.log('CLOOOSSSINNNG');
+        this.setState({
+            imageObjectLength: 0
+        })
     }
 
     render() {
@@ -302,9 +247,6 @@ class Header extends Component {
                                 ?
                                 <ul>
                                     {this.state.collections.map((item, index) => {
-                                        // convert all to lowercase and remove spaces(will use this value as query to api)
-                                        // let valueItem = item.toLowerCase().split(" ").join("")
-                                        console.log(index);
                                         return (
                                             <li onClick={this.handleItemClick}
                                                 id={`listItem${index}`}>{item}</li>
@@ -318,29 +260,15 @@ class Header extends Component {
                         </div>
                         <button>Search</button>
                     </form>
-
-                    {/* render the images to the page */}
-                    {/* <ul>
-                        {this.state.imageUrls.map((image) => {
-                            return (
-                                <li>
-                                    <img
-                                        src={image}
-                                        // id={gifObject.id}
-                                        // onClick={this.handleGifClick} 
-                                        alt=""
-                                        />
-                                </li>
-                            )
-                        })
-                        }
-                    </ul> */}
         </div>
                 {this.state.imageObjectLength === 0
                     ?
                     null
                     :
-                    <Modal displayImageInfo={this.state.clickedImageInfo}/>
+                    <Modal 
+                    displayImageInfo={this.state.clickedImageInfo}
+                    closeModal={this.handleCloseModal}
+                    />
                 }
          </div>
         )

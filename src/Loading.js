@@ -3,7 +3,6 @@ import React, { Component } from "react";
 const Loading = () => {
     return (
         <div className="loading">
-            {/* <p>Hello friends!</p> */}
             {/* <div id="root"> */}
                 <div class="divLoader">
                     <svg class="svgLoader" viewBox="0 0 100 100" width="10em" height="10em">
