@@ -10,7 +10,7 @@ class Modal extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props.displayImageInfo);        
+        console.log(this.props.displayImageInfo);
         this.setState({
             clickedImageInfo: this.props.displayImageInfo
         })
@@ -27,9 +27,9 @@ class Modal extends Component {
     render() {
         return (
             <div className="overlay">
-                <div 
-                className="modalContainer"
-                onClick={this.handleModalClick}
+                <div
+                    className="modalContainer"
+                    onClick={this.handleModalClick}
                 >
                     <div className="modal">
                         <div className="modalImage">

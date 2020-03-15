@@ -45,7 +45,8 @@ class QueryScreen extends Component {
                 console.log(error);
             })
         })
-        // send the Ids to App.js so that thye can be passed to Header
+        // send the Ids to App.js so that they can be passed to Header
+        // this will be used in Header.js
         this.props.passCollectionIds(collectionIds)
         // put the object with all the collections/Ids in state
         this.setState({
@@ -56,7 +57,7 @@ class QueryScreen extends Component {
     handleQuery = (event) => {
         // console.log(event.target.value);
         this.setState({
-            userQuery: event.target.value  
+            userQuery: event.target.value
         })
     }
 
@@ -67,7 +68,7 @@ class QueryScreen extends Component {
         if (this.state.dropDownOpen) {
             this.setState({
                 dropDownOpen: false
-            }) 
+            })
         } else {
             this.setState({
                 dropDownOpen: true
@@ -96,12 +97,12 @@ class QueryScreen extends Component {
             // check to see if the user selected a collection
             if (this.state.selectedCollection) {
                 console.log('I picked query and collection');
-                
+
                 // the user selected a collection
                 // make api call to get the images associated with the query + collections (grab the collections from state)
                 this.getDataQueryCollection()
                 // console.log(...this.state.collectionIds.Nature);
-                
+
             } else {
                 // the user did not select a collection
                 // make api call to get the images associated with just the query
@@ -124,7 +125,7 @@ class QueryScreen extends Component {
     }
 
     getDataQuery = () => {
-          axios({
+        axios({
             method: 'get',
             url: `${this.state.unsplashURL}/search/photos`,
             responseType: 'json',
@@ -135,24 +136,17 @@ class QueryScreen extends Component {
             }
         }).then((data) => {
             console.log(data.data.results);
-            
-            // let imagesToDisplay = data.data.results.map((item) => {
-            //     return item.urls.small
-            // })
-            // console.log(imagesToDisplay);
-            // put all the images in state (so that they can be rendered onto the page)
-            // after the urls are in state, call the function that tells App.js that the user has selected the search variables (causing the Display.js to render)
-            // this.setState({
-            //     imageUrls: imagesToDisplay
-            // }, () => {
-            //     this.props.userSelected(data.data.results)
-            // })
-
             this.props.userSelected(data.data.results)
-            
+
         }).catch((error) => {
             console.log(error);
-            this.props.userSelected({})
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            }
+            console.log("erroooorrr");
+            this.props.userSelected([])
         })
     }
 
@@ -167,7 +161,7 @@ class QueryScreen extends Component {
         // convert the array of ids into a string of ids (comma seperated)
         let totalId = idsToSearch.toString()
         console.log(totalId);
-        
+
         axios({
             method: 'get',
             url: `${this.state.unsplashURL}/search/photos`,
@@ -180,111 +174,27 @@ class QueryScreen extends Component {
             }
         }).then((data) => {
             console.log(data);
-            // let imagesToDisplay = data.data.results.map((item) => {
-            //     return item.urls.small
-            // })
-            // console.log(imagesToDisplay);
-            // put all the images in state (so that they can be rendered onto the page)
-            // this.setState({
-            //     imageUrls: imagesToDisplay
-            // }, () => {
-            //     this.props.userSelected(imagesToDisplay)
-            // })
-
             this.props.userSelected(data.data.results)
 
         }).catch((error) => {
             console.log(error);
-            this.props.userSelected({})
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            }
+            console.log("erroooorrr");
+            this.props.userSelected([])
         })
     }
 
     getDataCollection = () => {
-        // console.log(this.props.userSelected());
-        
         // grab the collection chosen by the user
         let selectedCollection = this.state.selectedCollection
         console.log(selectedCollection);
         // grab the ids associated with that collection
         let idsToSearch = this.state.collectionIds[`${selectedCollection}`]
         console.log(idsToSearch);
-
-        
-        // for (let x=0; x <idsToSearch.length; x++) {
-        //     console.log(idsToSearch[x]);
-            
-        //     axios({
-        //     method: 'get',
-        //     url: `${this.state.unsplashURL}/${id}/photos`,
-        //     responseType: 'json',
-        //     params: {
-        //         client_id: this.state.unsplashKey,
-        //         per_page: 20,
-        //         // query: this.state.userQuery,
-        //         // collections: 
-        //     }
-        // }).then((data) => {
-        //     console.log(data);
-        //     // let imagesToDisplay = data.data.results.map((item) => {
-        //     //     return item.urls.small
-        //     // })
-        //     // console.log(imagesToDisplay);
-        //     // put all the images in state (so that they can be rendered onto the page)
-        //     // this.setState({
-        //     //     imageUrls: imagesToDisplay
-        //     // }, () => {
-        //     //     this.props.userSelected(imagesToDisplay)
-        //     // })
-
-        //     // let randomNumber = Math.random() * 
-        //     // data
-
-        //     // this.props.userSelected(data.data.results)
-
-        // }).catch((error) => {
-        //     console.log(error);
-        // })
-
-            // if (x === 2) {
-            //     // if the data that is returned is good, exit the loop
-            //     return x
-            // } else {
-            //     console.log(x);
-                
-            // }
-        // }
-
-        // axios({
-        //     method: 'get',
-        //     url: `${this.state.unsplashURL}/search/photos`,
-        //     responseType: 'json',
-        //     params: {
-        //         client_id: this.state.unsplashKey,
-        //         per_page: 20,
-        //         query: this.state.userQuery,
-        //         collections: idsToSearch
-        //     }
-        // }).then((data) => {
-        //     console.log(data);
-        //     // let imagesToDisplay = data.data.results.map((item) => {
-        //     //     return item.urls.small
-        //     // })
-        //     // console.log(imagesToDisplay);
-        //     // put all the images in state (so that they can be rendered onto the page)
-        //     // this.setState({
-        //     //     imageUrls: imagesToDisplay
-        //     // }, () => {
-        //     //     this.props.userSelected(imagesToDisplay)
-        //     // })
-
-        //     let randomNumber = Math.random() * 
-        //     data
-
-        //     // this.props.userSelected(data.data.results)
-
-        // }).catch((error) => {
-        //     console.log(error);
-        // })
 
         // iterate over each collection id and make an api call to grab the associated images
         let promiseArray = []
@@ -303,32 +213,40 @@ class QueryScreen extends Component {
         })
 
         console.log(promiseArray);
-        
+
 
         Promise.all(promiseArray)
-        .then(function (data) {
-            //   console.log(data);
-            let combinedIds = []
-            data.forEach((imageArray) => {
-                imageArray.data.forEach((image) => {
-                    combinedIds.push(image) 
+            .then(function (data) {
+                //   console.log(data);
+                let combinedIds = []
+                data.forEach((imageArray) => {
+                    imageArray.data.forEach((image) => {
+                        combinedIds.push(image)
+                    })
                 })
+                console.log(combinedIds);
+
+                sendData(combinedIds)
+            }).catch((error) => {
+                console.log(error);
+                if (error.response) {
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                }
+                console.log("erroooorrr");
+                this.props.userSelected({})
             })
-            console.log(combinedIds);
-            
-            sendData(combinedIds)
-        }).catch((error) => {
-            console.log(error);
-            this.props.userSelected({})
-        })
 
         const sendData = (data) => {
+            console.log("erroooorrr");
             this.props.userSelected(data)
+            
         }
     }
 
     render() {
-        return(
+        return (
             <div class="queryScreen">
                 <div className="wrapper flexContainer">
                     <div className="logoContainer">
@@ -337,38 +255,38 @@ class QueryScreen extends Component {
                     <h1>image <span>search</span></h1>
                     <form className="queryForm" onSubmit={this.handleSubmit}>
                         <label for="query"></label>
-                        <input 
-                        type="text" 
-                        id="query" 
-                        placeholder="Query" 
-                        onChange={this.handleQuery}
-                        value={this.state.userQuery}
+                        <input
+                            type="text"
+                            id="query"
+                            placeholder="Query"
+                            onChange={this.handleQuery}
+                            value={this.state.userQuery}
                         ></input>
                         <label for="collections"></label>
                         <div className="collection" onClick={this.handleCollectionClick}>
-                            {this.state.userChoseCollection 
-                            ?
+                            {this.state.userChoseCollection
+                                ?
                                 <input type="text" id="collections" className="collections" placeholder={this.state.selectedCollection}
                                     disabled
                                 ></input>
-                            :
+                                :
                                 <input type="text" id="collections" className="collections" placeholder="Collections"
                                     disabled
                                 ></input>
                             }
-                            
+
                             {this.state.dropDownOpen
-                            ?
+                                ?
                                 <ul>
                                     {this.state.collections.map((item, index) => {
-                                        return(
+                                        return (
                                             <li onClick={this.handleItemClick}
-                                            id={`listItem${index}`}>{item}</li>
+                                                id={`listItem${index}`}>{item}</li>
                                         )
                                     })
                                     }
                                 </ul>
-                            :
+                                :
                                 null
                             }
                         </div>

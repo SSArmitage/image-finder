@@ -22,32 +22,23 @@ class Header extends Component {
         };
     }
 
-    componentDidMount() {   
-        console.log(this.props.passCollectionIds);
-        
+    componentDidMount() {
         this.setState({
             collectionIds: this.props.passCollectionIds
         })
     }
 
     componentDidUpdate(prevProps) {
-        console.log(this.props.passClickedImageInfo);
         if (this.props.passClickedImageInfo !== prevProps.passClickedImageInfo) {
-            console.log(`I was different`);
             const objectLength = Object.keys(this.props.passClickedImageInfo).length
-            console.log(objectLength);
-
-            
-
             this.setState({
-                clickedImageInfo: this.props.passClickedImageInfo, 
+                clickedImageInfo: this.props.passClickedImageInfo,
                 imageObjectLength: objectLength
             })
-        } 
+        }
     }
 
     handleQuery = (event) => {
-        // console.log(event.target.value);
         this.setState({
             userQuery: event.target.value
         })
@@ -56,7 +47,6 @@ class Header extends Component {
     // user clicks "collection" selector input
     // either opens or closes
     handleCollectionClick = () => {
-        console.log(`I clicked this`);
         if (this.state.dropDownOpen) {
             this.setState({
                 dropDownOpen: false
@@ -69,11 +59,8 @@ class Header extends Component {
     }
 
     handleItemClick = (event) => {
-        console.log(event.target.className);
-        console.log(event.target.id)
         // to get a text representation of the data get the .data from the textNode
         const selectedItem = document.getElementById(`${event.target.id}`).firstChild.data
-        console.log(selectedItem);
         this.setState({
             selectedCollection: selectedItem,
             userChoseCollection: true
@@ -82,25 +69,19 @@ class Header extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        console.log(event.target);
         // check to see if the user selected a query
         if (this.state.userQuery) {
             // the user selected a query
             // check to see if the user selected a collection
             if (this.state.selectedCollection) {
-                console.log('I picked query and collection');
-
                 // the user selected a collection
                 // make api call to get the images associated with the query + collections (grab the collections from state)
                 this.getDataQueryCollection()
-                // console.log(...this.state.collectionIds.Nature);
-
             } else {
                 // the user did not select a collection
                 // make api call to get the images associated with just the query
                 this.getDataQuery()
             }
-
         } else {
             // the user did not select a query
             // check to see if the user selected a collection
@@ -128,39 +109,56 @@ class Header extends Component {
             }
         }).then((data) => {
             this.props.userSelected(data.data.results)
-
         }).catch((error) => {
-            console.log(error);
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            }
+            console.log("erroooorrr");
+            this.props.userSelected([])
         })
     }
 
     getDataQueryCollection = () => {
-        // console.log(this.state.selectedCollection);
         // grab the collection chosen by the user
         let selectedCollection = this.state.selectedCollection
         console.log(selectedCollection);
+        
         // grab the ids associated with that collection
         let idsToSearch = this.state.collectionIds[`${selectedCollection}`]
         console.log(idsToSearch);
         // convert the array of ids into a string of ids (comma seperated)
-        let totalId = idsToSearch.toString()
-        console.log(totalId);
+        // let totalId = idsToSearch.toString()
 
-        axios({
-            method: 'get',
-            url: `${this.state.unsplashURL}/search/photos`,
-            responseType: 'json',
-            params: {
-                client_id: this.state.unsplashKey,
-                per_page: 20,
-                query: this.state.userQuery,
-                collections: totalId
-            }
-        }).then((data) => {
-            this.props.userSelected(data.data.results)
-        }).catch((error) => {
-            console.log(error);
-            this.props.userSelected({})
+        // iterate over the array of ids, if the current one has above a certain number of images, choose that collection
+        idsToSearch.forEach((collectionId) => {
+            axios({
+                method: 'get',
+                url: `${this.state.unsplashURL}/search/photos`,
+                responseType: 'json',
+                params: {
+                    client_id: this.state.unsplashKey,
+                    per_page: 20,
+                    query: this.state.userQuery,
+                    collections: collectionId
+                }
+            }).then((data) => {
+                console.log(data.data.results);
+                // check to see if there are enough results, if so use this endpoint (exit out of this forEach)
+
+                this.props.userSelected(data.data.results)
+            }).catch((error) => {
+                if (error.response) {
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                }
+                console.log('This application is considered to be in demo mode by Unsplash, so the API currently places a limit of 50 requests per hour. You have exceeded this rate limit');
+
+                console.log("erroooorrr");
+                this.props.userSelected([])
+            })
         })
     }
 
@@ -184,21 +182,26 @@ class Header extends Component {
             promiseArray.push(promise)
         })
 
-        console.log(promiseArray);
-
-
         Promise.all(promiseArray)
             .then(function (data) {
+                console.log(data.status);
                 let combinedIds = []
                 data.forEach((imageArray) => {
                     imageArray.data.forEach((image) => {
                         combinedIds.push(image)
                     })
                 })
+                
+                
                 sendData(combinedIds)
             }).catch((error) => {
-                console.log(error);
-                this.props.userSelected({})
+                if (error.response) {
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                }
+                console.log("erroooorrr");
+                this.props.userSelected([])
             })
 
         const sendData = (data) => {
@@ -207,7 +210,6 @@ class Header extends Component {
     }
 
     handleCloseModal = () => {
-        console.log('CLOOOSSSINNNG');
         this.setState({
             imageObjectLength: 0
         })
@@ -260,17 +262,17 @@ class Header extends Component {
                         </div>
                         <button>Search</button>
                     </form>
-        </div>
+                </div>
                 {this.state.imageObjectLength === 0
                     ?
                     null
                     :
-                    <Modal 
-                    displayImageInfo={this.state.clickedImageInfo}
-                    closeModal={this.handleCloseModal}
+                    <Modal
+                        displayImageInfo={this.state.clickedImageInfo}
+                        closeModal={this.handleCloseModal}
                     />
                 }
-         </div>
+            </div>
         )
     }
 }
