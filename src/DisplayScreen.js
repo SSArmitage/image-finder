@@ -35,7 +35,6 @@ class DisplayScreen extends Component {
     }
 
     handleClick = (event) => {
-        console.log(`I was clicked :) :) :)`);
         console.log(event);
         
         // console.log(event.nativeEvent.path[1]);
