@@ -15,7 +15,6 @@ class DisplayScreen extends Component {
 
     componentDidMount() {
         console.log(this.props.imageUrls);
-
         this.setState({
             imageUrls: this.props.imageUrls,
             isLoading: false
@@ -23,7 +22,6 @@ class DisplayScreen extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log('I AM UPDATING!!!');
         console.log(this.props.imageUrls);
         // check to see if the incoming props is different from the prevProps, if so the user has chosen a new query/collection, need to set these new urls in state (inorder to update the images on the page)
         if (this.props.imageUrls !== prevProps.imageUrls) {
@@ -36,15 +34,7 @@ class DisplayScreen extends Component {
 
     handleClick = (event) => {
         console.log(event);
-        
-        // console.log(event.nativeEvent.path[1]);
-        // console.log(event.nativeEvent.path[1].id);
-
         // grab the id of the image that was clicked
-        // need to use event.nativeEvent.path[1].id because when you hover on the image the overlay appears, and when clicking on the image the event will be associated with the overlay (since it is the most superficial layer), so you need to make use of propogation -> nativeEvent
-        // becasue of React's "SyntheticEvent" wrapper, need the underlying browser event "nativeEvent" to grab the image target that is below the overlay
-        // const clickedImageId = event.nativeEvent.path[1].id
-
         const clickedImageId = event.target.id
         console.log(clickedImageId);
         // // use that id to get the associated image info
@@ -60,7 +50,6 @@ class DisplayScreen extends Component {
 
     render() {
         return (
-
             <div className="wrapper display">
                 {this.state.imageUrls.length === 0
                     ?
@@ -70,20 +59,16 @@ class DisplayScreen extends Component {
                         <ul className="imageList">
                             {this.state.imageUrls.map((image, id) => {
                                 return (
-                                    <li 
-                                        className="image"
-                                        // id={id}
-                                        // onClick={this.handleClick}
-                                        >
+                                    <li className="image">
                                         <img
-                                            src={image.urls.small}
-                                            // onClick={this.handleClick}
-                                            id={id}
-                                            alt={image.alt_description}
+                                        src={image.urls.small}
+                                        id={id}
+                                        alt={image.alt_description}
                                         />
                                         <div className="imageOverlay"
                                         id={id}
-                                        onClick={this.handleClick}></div>
+                                        onClick={this.handleClick}
+                                        ></div>
                                     </li>
                                 )
                             })

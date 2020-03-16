@@ -180,8 +180,7 @@ legend, button::-moz-focus-inner, input::-moz-focus-inner {
   overflow: hidden;
 }
 
-/*VARIAB
-ES*/
+/*VARIABLES*/
 /*FONT*/
 body, h1, h2, h3, p, ul, li {
   margin: 0;
@@ -243,29 +242,11 @@ footer {
   min-height: 10vh;
 }
 
-ul,
-li {
-  list-style: none;
-}
-
 button {
   text-transform: uppercase;
 }
 
 /* Skip-line for accessibility */
-.skipLink {
-  position: absolute;
-  left: -1000px;
-  top: 5px;
-  z-index: 999;
-  background: transparent;
-  color: transparent;
-}
-
-.skipLink:focus {
-  left: 0;
-}
-
 /* Global Styles End Here */
 .header {
   position: relative;
@@ -498,6 +479,7 @@ main {
   font-weight: 600;
   font-size: 14px;
   line-height: 19px;
+  cursor: pointer;
   padding: 15px 0 15px 20px;
 }
 
@@ -631,6 +613,7 @@ main {
 .header .queryForm .collections {
   width: 100%;
   position: relative;
+  cursor: pointer;
 }
 
 .header .flexContainer {

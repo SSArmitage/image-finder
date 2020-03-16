@@ -10,17 +10,12 @@ class Modal extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props.displayImageInfo);
         this.setState({
             clickedImageInfo: this.props.displayImageInfo
         })
     }
 
     handleModalClick = () => {
-        console.log("I clicked the modal!!!!!");
-        // this.setState({
-        //     exitModal: true
-        // })
         this.props.closeModal()
     }
 
@@ -28,16 +23,20 @@ class Modal extends Component {
         return (
             <div className="overlay">
                 <div
-                    className="modalContainer"
-                    onClick={this.handleModalClick}
+                className="modalContainer"
+                onClick={this.handleModalClick}
                 >
                     <div className="modal">
                         <div className="modalImage">
-                            <img src={this.props.displayImageInfo.urls.small}></img>
+                            <img 
+                            src={this.props.displayImageInfo.urls.small}
+                            alt={this.props.displayImageInfo.alt_description}
+                            ></img>
                         </div>
                         <div className="imageInfo">
                             <div className="profileImage">
-                                <img src={this.props.displayImageInfo.user.profile_image.medium}></img>
+                                <img src={this.props.displayImageInfo.user.profile_image.medium}
+                                alt="Photographer's profile picture"></img>
                             </div>
                             <div className="userInfo">
                                 <p className="name">{this.props.displayImageInfo.user.name}</p>

@@ -33,14 +33,12 @@ class QueryScreen extends Component {
                     query: collection
                 }
             }).then((data) => {
-                console.log(data);
                 // grab the ID for each collection
                 const ids = data.data.results.map((item) => {
                     return item.id
                 })
                 // add the current collection (key) and its associated ids array (value) to the collectionIds object 
                 collectionIds[collection] = ids
-                console.log(collectionIds);
             }).catch((error) => {
                 console.log(error);
             })
@@ -64,7 +62,6 @@ class QueryScreen extends Component {
     // user clicks "collection" selector input
     // either opens or closes
     handleCollectionClick = () => {
-        console.log(`I clicked this`);
         if (this.state.dropDownOpen) {
             this.setState({
                 dropDownOpen: false
@@ -77,11 +74,8 @@ class QueryScreen extends Component {
     }
 
     handleItemClick = (event) => {
-        console.log(event.target.className);
-        console.log(event.target.id)
         // to get a text representation of the data get the .data from the textNode
         const selectedItem = document.getElementById(`${event.target.id}`).firstChild.data
-        console.log(selectedItem);
         this.setState({
             selectedCollection: selectedItem,
             userChoseCollection: true
@@ -90,25 +84,19 @@ class QueryScreen extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        console.log(event.target);
         // check to see if the user selected a query
         if (this.state.userQuery) {
             // the user selected a query
             // check to see if the user selected a collection
             if (this.state.selectedCollection) {
-                console.log('I picked query and collection');
-
                 // the user selected a collection
                 // make api call to get the images associated with the query + collections (grab the collections from state)
                 this.getDataQueryCollection()
-                // console.log(...this.state.collectionIds.Nature);
-
             } else {
                 // the user did not select a collection
                 // make api call to get the images associated with just the query
                 this.getDataQuery()
             }
-
         } else {
             // the user did not select a query
             // check to see if the user selected a collection
@@ -119,7 +107,7 @@ class QueryScreen extends Component {
             } else {
                 // the user did not select a collection
                 // alert the user they need to select either a query or a collection
-                alert('Please select a query/collection/query & collection')
+                alert('Please select 1. A query or collection, 2. A query and a collection')
             }
         }
     }
@@ -137,7 +125,6 @@ class QueryScreen extends Component {
         }).then((data) => {
             console.log(data.data.results);
             this.props.userSelected(data.data.results)
-
         }).catch((error) => {
             console.log(error);
             if (error.response) {
@@ -151,7 +138,6 @@ class QueryScreen extends Component {
     }
 
     getDataQueryCollection = () => {
-        // console.log(this.state.selectedCollection);
         // grab the collection chosen by the user
         let selectedCollection = this.state.selectedCollection
         console.log(selectedCollection);
@@ -212,12 +198,8 @@ class QueryScreen extends Component {
             promiseArray.push(promise)
         })
 
-        console.log(promiseArray);
-
-
         Promise.all(promiseArray)
             .then(function (data) {
-                //   console.log(data);
                 let combinedIds = []
                 data.forEach((imageArray) => {
                     imageArray.data.forEach((image) => {
@@ -241,7 +223,6 @@ class QueryScreen extends Component {
         const sendData = (data) => {
             console.log("erroooorrr");
             this.props.userSelected(data)
-            
         }
     }
 
@@ -250,7 +231,7 @@ class QueryScreen extends Component {
             <div class="queryScreen">
                 <div className="wrapper flexContainer">
                     <div className="logoContainer">
-                        <img src={logo}></img>
+                        <img src={logo} alt="Logo"></img>
                     </div>
                     <h1>image <span>search</span></h1>
                     <form className="queryForm" onSubmit={this.handleSubmit}>
@@ -281,7 +262,7 @@ class QueryScreen extends Component {
                                     {this.state.collections.map((item, index) => {
                                         return (
                                             <li onClick={this.handleItemClick}
-                                                id={`listItem${index}`}>{item}</li>
+                                            id={`listItem${index}`}>{item}</li>
                                         )
                                     })
                                     }

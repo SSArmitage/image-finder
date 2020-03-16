@@ -25,7 +25,6 @@ main {
       font-weight: 600;
       font-size: 14px;
       line-height: 19px;
-      // color: #D5D7E5;
       cursor: pointer;
       padding: 15px 0 15px 20px;
       &:hover {
@@ -70,7 +69,6 @@ main {
       font-weight: 600;
       font-size: 14px;
       line-height: 19px;
-      // color: #D5D7E5;
       color: black;
       padding: 15px 0 15px 20px;
       border-radius: 4px;
@@ -127,7 +125,6 @@ main {
       height: 50px;
       background-color: $grey;
       border-radius: 4px;
-      // z-index: -10;
     }
   }
 
@@ -142,35 +139,6 @@ main {
     @include flexCenter;
     flex-direction: column;
   }
-
-  // .queryScreen {
-  //   width: 100%;
-  //   min-height: 100vh;
-  //   background-color: $dark-color;
-  //   @include flexCenter;
-  // }
-
-  // .queryScreen ul {
-  //   position: absolute;
-  //   top: 46px;
-  // }
-
-  // .queryScreen li {
-  //   background-color: $light-color;
-  //   color: black;
-  //   width: 400px;
-  //   height: 50px;
-  //   font-family: Open Sans;
-  //   font-style: normal;
-  //   font-weight: 600;
-  //   font-size: 14px;
-  //   line-height: 19px;
-  //   // color: #D5D7E5;
-  //   padding: 15px 0 15px 20px;
-  //   &:hover {
-  //     background-color: $grey;
-  //   }
-  // }
 }
 
 // Display Screen
@@ -190,14 +158,13 @@ main {
     li {
       background-color: $light-color;
       color: black;
-      // width: 400px;
       height: 50px;
       font-family: Open Sans;
       font-style: normal;
       font-weight: 600;
       font-size: 14px;
       line-height: 19px;
-      // color: #D5D7E5;
+      cursor: pointer;
       padding: 15px 0 15px 20px;
       &:hover {
         background-color: $grey;
@@ -212,8 +179,6 @@ main {
     line-height: 49px;
     text-align: center;
     color: $light-color;
-    // margin-bottom: 51px;
-    // margin-top: 14px;
     span {
       font-weight: 200;
     }
@@ -237,26 +202,21 @@ main {
   .queryForm {
     @include flexCenter;
     width: 75%;
-    // flex-direction: column;
     .query, .collection {
       width: 50%;
     }
     input, select {
-      // width: 400px;
       height: 50px;
       font-family: Open Sans;
       font-style: normal;
       font-weight: 600;
       font-size: 14px;
       line-height: 19px;
-      // color: #D5D7E5;
       color: black;
       padding: 15px 0 15px 20px;
       border-radius: 4px;
     }
-    input {
-      // margin-bottom: 21px;
-    }
+
     button {
       height: 50px;
       width: 246px;
@@ -269,7 +229,6 @@ main {
       font-size: 14px;
       line-height: 19px;
       letter-spacing: 0.1em;
-      // margin-top: 51px;
       margin-left: 52px;
     }
     .collection {
@@ -304,42 +263,33 @@ main {
       position: absolute;
       top: 6px;
       left: 10px;
-      // width: 380px;
       width: 95%;
       height: 50px;
       background-color: $grey;
       border-radius: 4px;
-      // z-index: -10;
     }
 
     .collections {
       width: 100%;
       position: relative;
+      cursor: pointer;
     }
   }
 
   .flexContainer {
     display: flex;
-    // height: 100%;
     align-items: center;
     justify-content: space-around;
-    // @include flexCenter;
-    // flex-direction: column;
   }
 }
 
 .imageList {
   columns: 3 100px;
-  // overflow: scroll;
   column-gap: 10px;
-  // row-gap: 10px;
   
   li {
     background-color: red;
-    // z-index: 100;
-    // width: 30%;
     margin-bottom: 10px;
-    // position: relative;
   }
 
   .image {
@@ -359,35 +309,18 @@ main {
   .image:hover .imageOverlay{
     display: block;
   }
-
-  // .image:hover .image::before {
-  //   opacity: 0.6;
-  // }
-
-
-  // .image::before:hover {
-  //   opacity: 0.6;
-  // }
 }
-
-
 
 .display {
-  // padding: 50px 0;
   padding: 170px 0;
-  // position: relative;
-  // z-index: -10;
 }
 
-// .display div:first-of-type 
 .imageListConteiner {
   position: relative;
-  // z-index: -10;
 }
 
 // LOADING SCREEN
 .loading {
-  // width: 100%;
   height: 100vh;
   background-color: blueviolet;
 }
@@ -412,7 +345,6 @@ main {
 // NO RESULTS SCREEN
 .noResults {
   background: rgba(255,74,74,0.1);
-  // opacity: 0.1;
   border-radius: 4px;
   height: 62px;
   display: flex;
@@ -429,21 +361,15 @@ main {
 }
 
 // MODAL
-
 .modalContainer {
   position: fixed;
   background-color: rgba(255, 255, 255, 0);
-  // width: 40%;
-  // height: 70vh;
-  // left: 28%;
   top:0;
   left: 0;
   bottom: 0;
   width: 100%;
-  // top: 150px;
   padding: 40px;
   z-index: 30;
-  // margin-bottom: 50px;
   @include flexCenter;
   img {
      max-height: 400px;
@@ -456,11 +382,7 @@ main {
 }
 
 .overlay {
-  // background: rgba(5, 4, 23, 0.8);
   position: relative;
-  // z-index: 20;
-  // width: 100%;
-  // overflow: scroll;
 }
 
 .overlayTwo {
@@ -477,23 +399,12 @@ main {
   min-height: 100vh;
 }
 
-// .overlayTwo::before {
-//   content: "";
-//   background-color: pink;
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   min-height: 100vh;
-// }
-
 .noScroll {
   overflow: hidden;
 }
 
 .profileImage {
   width: 60px;
-  // border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -512,7 +423,6 @@ main {
 .userInfo {
   display: flex;
   flex-direction: column;
-  // align-items: center;
   justify-content: center;
 }
 
