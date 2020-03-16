@@ -35,14 +35,18 @@ class DisplayScreen extends Component {
     }
 
     handleClick = (event) => {
-        console.log(`I was clicked`);
-        console.log(event.nativeEvent.path[1]);
-        console.log(event.nativeEvent.path[1].id);
+        console.log(`I was clicked :) :) :)`);
+        console.log(event);
+        
+        // console.log(event.nativeEvent.path[1]);
+        // console.log(event.nativeEvent.path[1].id);
+
         // grab the id of the image that was clicked
         // need to use event.nativeEvent.path[1].id because when you hover on the image the overlay appears, and when clicking on the image the event will be associated with the overlay (since it is the most superficial layer), so you need to make use of propogation -> nativeEvent
         // becasue of React's "SyntheticEvent" wrapper, need the underlying browser event "nativeEvent" to grab the image target that is below the overlay
-        const clickedImageId = event.nativeEvent.path[1].id
-        // const clickedImageId = event.target.id
+        // const clickedImageId = event.nativeEvent.path[1].id
+
+        const clickedImageId = event.target.id
         console.log(clickedImageId);
         // // use that id to get the associated image info
         const clickedImageInfo = this.state.imageUrls[clickedImageId]
@@ -69,15 +73,18 @@ class DisplayScreen extends Component {
                                 return (
                                     <li 
                                         className="image"
-                                        id={id}
-                                        onClick={this.handleClick}>
+                                        // id={id}
+                                        // onClick={this.handleClick}
+                                        >
                                         <img
                                             src={image.urls.small}
                                             // onClick={this.handleClick}
                                             id={id}
                                             alt={image.alt_description}
                                         />
-                                        <div className="imageOverlay"></div>
+                                        <div className="imageOverlay"
+                                        id={id}
+                                        onClick={this.handleClick}></div>
                                     </li>
                                 )
                             })
