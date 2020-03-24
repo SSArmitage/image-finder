@@ -1,5 +1,46 @@
+// FLEX CENTER MIXIN
 @mixin flexCenter {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+// FONT MIXIN
+@mixin fontStyle(
+    $fontSize, 
+    $fontColor,
+    $fontFamily,
+    $fontStyle,
+    $weight, 
+    $lineHeight,
+    ) {
+  font-size: $fontSize;
+  color: $fontColor;
+  font-family: $fontFamily;
+  font-style: $fontStyle;
+  font-weight: $weight;
+  line-height: $lineHeight;
+}
+
+// MEDIA QUERY MIXINS
+@mixin forSmallerScreen {
+  @media (max-width: 400px) { @content;}
+}
+@mixin forSmallPhone {
+    @media (max-width: 525px) { @content; }
+}
+@mixin forPhone {
+    @media (max-width: 700px) { @content; }
+}
+@mixin forTablet {
+    @media (max-width: 900px) { @content; }
+}
+@mixin forSmallDesktop {
+    @media (max-width: 1200px) { @content; }
+}
+@mixin forDesktop {
+    @media (max-width: 1600px) { @content; }
+}
+@mixin forBigDesktop {
+    @media (min-width: 1601px) { @content; }
 }

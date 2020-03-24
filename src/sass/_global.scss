@@ -1,17 +1,19 @@
-
-/*VARIABLES*/
+/* VARIABLES */
 $dark-color: #050417;
 $accent-color: #2A2B8D;
 $grey: #D5D7E5;
 $light-color: #FFFFFF;
+$black: #000000;
 $light-transparent-color: rgba(213, 215, 229, 1);
-$body-font: "Poppins", sans-serif;
-$heading-font: "Libre Caslon Display", serif;
+$body-font: "Open Sans", sans-serif;
+$no-results-color: #FF4A4A;
+// $overlay-color: rgba(255, 255, 255, 0);
+$overlay-color: rgba(5, 4, 23, 0.8);
 
-/*FONT*/
+/* FONT */
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap");
 
-// REMOVE DEFAULTS
+/* REMOVE DEFAULTS */
 body, h1, h2, h3, p, ul, li {
 	margin: 0;
 	padding: 0;
@@ -43,8 +45,7 @@ textarea {
     border: none;
 }
 
-
-/*MAIN STYLING*/
+/* GENERAL STYLES */
 html {
   font-size: 62.5%;
 }
@@ -65,87 +66,21 @@ img {
   display: block;
 }
 
-main {
-  min-height: 80vh;
-}
-
-footer {
-  min-height: 10vh;
-}
-
-h2 {
-  // font-family: $heading-font;
-  // font-size: 3.2rem;
-  // border-bottom: 5px solid $accent-color;
-  // margin: 0;
-}
-
-h3 {
-  // font-family: $heading-font;
-  // font-size: 4rem;
-  // margin: 0;
-}
-
-p {
-  // font-size: 2.3rem;
-  // color: $dark-color;
-  // padding: 10px;
-  // margin: 0;
-  // margin-bottom: 5px;
-}
-
-// button {
-//   transform: translate(0%, 0%);
-//   border: none;
-//   margin: 0;
-//   background: lighten($dark-color, 10%);
-//   box-shadow: 4px 4px $accent-color;
-//   color: white;
-//   padding: 15px 15px;
-//   font-size: 2rem;
-//   border-radius: 25px;
-//   outline: none;
-//   overflow: hidden;
-//   transition: 500ms ease all;
-//   &:before {
-//     content: '';
-//     position: absolute;
-//     top: -40%;
-//     right: 110%;
-//     width: 30px;
-//     height: 200%;
-//     background: rgba(white, .3);
-//     transform: rotate(20deg);
-//   }
-//   &:hover {
-//     background: lighten($accent-color, 13%);
-//     box-shadow: 2px 2px $dark-color;
-//     &:before {
-//       right: -50%;
-//       transition: 1s ease all;
-//     }
-//   }
-//   &:focus {
-//     transform: scale(1.1);
-//   }
-// }
-
 button {
-  text-transform: uppercase;;
+  text-transform: uppercase;
+  height: 50px;
+  width: 246px;
+  border-radius: 25px;
+  @include fontStyle(14px, $light-color, $body-font, normal, 800, 19px);
+  background-color: $accent-color;
+  letter-spacing: 0.1em;
+  &:hover, &:focus {
+    background: lighten($accent-color, 13%);
+   }
 }
 
-/* Skip-line for accessibility */
-// .skipLink {
-//     position: absolute;
-//     left: -1000px;
-//     top: 5px;
-//     z-index: 999;
-//     background: transparent;
-//     color: transparent;
-// }
+.notVisible {
+  display: none;
+}
 
-// .skipLink:focus {
-//     left: 0;
-// }
 
-/* Global Styles End Here */

@@ -20,8 +20,7 @@ class QueryScreen extends Component {
 
     componentDidMount() {
         let collectionIds = {}
-        // make axios call to Unsplash api
-        // go through all the collections in state and do api call to get the id's
+        // go through all the collections in state and make API call to Unsplash API to get the collection id's
         this.state.collections.forEach((collection) => {
             axios({
                 method: 'get',
@@ -37,13 +36,13 @@ class QueryScreen extends Component {
                 const ids = data.data.results.map((item) => {
                     return item.id
                 })
-                // add the current collection (key) and its associated ids array (value) to the collectionIds object 
+                // add the current collection (key) and its associated IDs array (value) to the collectionIds object 
                 collectionIds[collection] = ids
             }).catch((error) => {
                 console.log(error);
             })
         })
-        // send the Ids to App.js so that they can be passed to Header
+        // send the IDs to App.js so that they can be passed to Header
         // this will be used in Header.js
         this.props.passCollectionIds(collectionIds)
         // put the object with all the collections/Ids in state
@@ -52,15 +51,14 @@ class QueryScreen extends Component {
         })
     }
 
+    // As the user types into the query text input, this function grabs the value of the input and stores it in state
     handleQuery = (event) => {
-        // console.log(event.target.value);
         this.setState({
             userQuery: event.target.value
         })
     }
 
-    // user clicks "collection" selector input
-    // either opens or closes
+    // When the user clicks the "collection" selector input, this function either opens or closes the collection drop-down menu
     handleCollectionClick = () => {
         if (this.state.dropDownOpen) {
             this.setState({
@@ -73,8 +71,9 @@ class QueryScreen extends Component {
         }
     }
 
+    // When the user clicks on an item in the collection list, this function grabs the text of that item
     handleItemClick = (event) => {
-        // to get a text representation of the data get the .data from the textNode
+        // to get a text representation of the data in the collection item, get the .data from the textNode
         const selectedItem = document.getElementById(`${event.target.id}`).firstChild.data
         this.setState({
             selectedCollection: selectedItem,
@@ -82,8 +81,11 @@ class QueryScreen extends Component {
         })
     }
 
+    // This function determines which type of API call will get made, based on the user query/collection selection
     handleSubmit = (event) => {
         event.preventDefault();
+        // initialize the loading component (loading will be turned off when the appropriate api call returns successful/unsuccessful)
+        this.props.loading("start")
         // check to see if the user selected a query
         if (this.state.userQuery) {
             // the user selected a query
@@ -107,36 +109,59 @@ class QueryScreen extends Component {
             } else {
                 // the user did not select a collection
                 // alert the user they need to select either a query or a collection
-                alert('Please select 1. A query or collection, 2. A query and a collection')
+                alert('Please select 1. A query or collection OR 2. A query and a collection')
             }
         }
     }
 
+    // The user selected just a query
     getDataQuery = () => {
+        // this.props.loading("start")
         axios({
             method: 'get',
             url: `${this.state.unsplashURL}/search/photos`,
             responseType: 'json',
             params: {
                 client_id: this.state.unsplashKey,
-                per_page: 20,
+                per_page: 31,
                 query: this.state.userQuery,
             }
         }).then((data) => {
-            console.log(data.data.results);
             this.props.userSelected(data.data.results)
+            this.props.loading("stop")
         }).catch((error) => {
-            console.log(error);
-            if (error.response) {
+            if (error.response.status === 403) {
                 console.log(error.response.data);
                 console.log(error.response.status);
                 console.log(error.response.headers);
+                // console.log('This application is considered to be in demo mode by Unsplash, so the API currently places a limit of 50 requests per hour. You have exceeded this rate limit');
+                this.props.userSelected([
+                    "Error",
+                    "Rate Limit Exceeded"
+                ])
+            } else {
+                this.props.userSelected([
+                    "Error",
+                    "No Results"
+                ])
             }
-            console.log("erroooorrr");
-            this.props.userSelected([])
+            
+            // console.log(error);
+            // console.log(error.response.data);
+            // console.log(error.response.status);
+            // console.log(error.response.headers);
+
+            // if (error.response.status === 403) {
+            //     console.log(error.response.data);
+            //     console.log(error.response.status);
+            //     console.log(error.response.headers);
+            //     alert("This application is considered to be in demo mode by Unsplash, so the API currently places a limit of 50 requests per hour. You have exceeded this rate limit.")
+            // }
+            this.props.loading("stop")
         })
     }
 
+    // The user selected a query + collection
     getDataQueryCollection = () => {
         // grab the collection chosen by the user
         let selectedCollection = this.state.selectedCollection
@@ -161,19 +186,36 @@ class QueryScreen extends Component {
         }).then((data) => {
             console.log(data);
             this.props.userSelected(data.data.results)
-
+            this.props.loading("stop")
         }).catch((error) => {
-            console.log(error);
-            if (error.response) {
+            if (error.response.status === 403) {
                 console.log(error.response.data);
                 console.log(error.response.status);
                 console.log(error.response.headers);
+                // console.log('This application is considered to be in demo mode by Unsplash, so the API currently places a limit of 50 requests per hour. You have exceeded this rate limit');
+                this.props.userSelected([
+                    "Error",
+                    "Rate Limit Exceeded"
+                ])
+            } else {
+                this.props.userSelected([
+                    "Error",
+                    "No Results"
+                ])
             }
-            console.log("erroooorrr");
-            this.props.userSelected([])
+            // console.log(error);
+            // if (error.response) {
+            //     console.log(error.response.data);
+            //     console.log(error.response.status);
+            //     console.log(error.response.headers);
+            // }
+            // console.log("erroooorrr");
+            // this.props.userSelected([])
+            this.props.loading("stop")
         })
     }
 
+    // The user selected just a collection
     getDataCollection = () => {
         // grab the collection chosen by the user
         let selectedCollection = this.state.selectedCollection
@@ -207,22 +249,39 @@ class QueryScreen extends Component {
                     })
                 })
                 console.log(combinedIds);
-
                 sendData(combinedIds)
             }).catch((error) => {
-                console.log(error);
-                if (error.response) {
+                if (error.response.status === 403) {
                     console.log(error.response.data);
                     console.log(error.response.status);
                     console.log(error.response.headers);
+                    // console.log('This application is considered to be in demo mode by Unsplash, so the API currently places a limit of 50 requests per hour. You have exceeded this rate limit');
+                    this.props.userSelected([
+                        "Error",
+                        "Rate Limit Exceeded"
+                    ])
+                } else {
+                    this.props.userSelected([
+                        "Error",
+                        "No Results"
+                    ])
                 }
-                console.log("erroooorrr");
-                this.props.userSelected({})
+
+                // console.log(error);
+                // if (error.response) {
+                //     console.log(error.response.data);
+                //     console.log(error.response.status);
+                //     console.log(error.response.headers);
+                // }
+                // console.log("erroooorrr");
+                // this.props.userSelected({})
+                this.props.loading("stop")
             })
 
         const sendData = (data) => {
             console.log("erroooorrr");
             this.props.userSelected(data)
+            this.props.loading("stop")
         }
     }
 
@@ -244,7 +303,9 @@ class QueryScreen extends Component {
                             value={this.state.userQuery}
                         ></input>
                         <label for="collections"></label>
-                        <div className="collection" onClick={this.handleCollectionClick}>
+                        <div 
+                        className="collection" 
+                        onClick={this.handleCollectionClick}>
                             {this.state.userChoseCollection
                                 ?
                                 <input type="text" id="collections" className="collections" placeholder={this.state.selectedCollection}

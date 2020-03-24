@@ -1,9 +1,12 @@
-
+// GENERAL MAIN STYLES
 main {
   min-height: 100vh;
   @include flexCenter
 }
 
+// ****************************************** //
+//              QUERY SCREEN                  //
+// ****************************************** //
 .queryScreen {
     width: 100%;
     min-height: 100vh;
@@ -14,32 +17,22 @@ main {
       position: absolute;
       top: 46px;
     }
-
+    
     li {
       background-color: $light-color;
-      color: black;
+      @include fontStyle(14px, $black, $body-font, normal, 700, 19px);
       width: 400px;
       height: 50px;
-      font-family: Open Sans;
-      font-style: normal;
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 19px;
       cursor: pointer;
       padding: 15px 0 15px 20px;
-      &:hover {
+      &:hover, &:focus {
         background-color: $grey;
       }
     }
 
     h1 {
-    font-family: Open Sans;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 36px;
-    line-height: 49px;
+    @include fontStyle(36px, $light-color, $body-font, normal, 700, 49px);
     text-align: center;
-    color: $light-color;
     margin-bottom: 51px;
     margin-top: 14px;
     span {
@@ -61,37 +54,148 @@ main {
   .queryForm {
     @include flexCenter;
     flex-direction: column;
+    @include forSmallPhone {
+      width: 60%
+    }
     input, select {
       width: 400px;
       height: 50px;
-      font-family: Open Sans;
-      font-style: normal;
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 19px;
-      color: black;
+      @include fontStyle(14px, $black, $body-font, normal, 700, 19px);
+      padding: 15px 0 15px 20px;
+      border-radius: 4px;
+      @include forSmallPhone {
+      width: 100%;
+    }
+    }
+
+    input {
+      margin-bottom: 21px;
+    }
+
+    button {
+      margin-top: 51px;
+    }
+
+    .collection {
+      position: relative;
+      ul {
+        height: 200px;
+        overflow: scroll;
+        @include forSmallPhone {
+          width: 100%;
+          height: 150px;
+        }
+      }
+      li {
+        @include forSmallPhone {
+           width: 100%
+         }
+      }
+      @include forSmallPhone {
+      width: 100%
+    }
+    }
+
+    .collection::after {
+      content: '';
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      width: 0; 
+      height: 0; 
+      border-left: 9px solid transparent;
+      border-right: 9px solid transparent;
+      border-top: 9px solid $dark-color;
+      border-radius: 2px;
+    }
+
+    .collection:hover::after {
+        cursor: pointer;
+        border-top: 9px solid $no-results-color;
+      }
+
+    .collection::before {
+      content: '';
+      position: absolute;
+      top: 6px;
+      left: 10px;
+      width: 380px;
+      height: 50px;
+      background-color: $grey;
+      border-radius: 4px;
+      @include forSmallPhone {
+        display: none;
+    }
+    }
+  }
+
+  .collections {
+      width: 100%;
+      position: relative;
+      cursor: pointer;
+    }
+
+  .flexContainer {
+    display: flex;
+    @include flexCenter;
+    flex-direction: column;
+    @include forSmallPhone {
+      width: 100%
+    }
+  }
+}
+
+// ****************************************** //
+//              DISPLAY SCREEN                //
+// ****************************************** //
+// HEADER STYLES
+.header {
+  width: 100%;
+  z-index: 10;
+  .flexContainer {
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: space-around;
+    @include forPhone {
+      justify-content: space-between;
+    }
+  }
+  .hamburgerQueryForm {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 120px;
+    left: 0;
+    background-color: $dark-color;
+    padding-bottom: 93px;
+    // opacity: 0.5;
+    @include flexCenter;
+    flex-direction: column;
+    // @include forPhone {
+    //   display: none;
+    // }
+    // width: 75%;
+    .query, .collection, button {
+      width: 60%;
+    }
+    input, select {
+      height: 50px;
+      @include fontStyle(14px, $black, $body-font, normal, 700, 19px);
       padding: 15px 0 15px 20px;
       border-radius: 4px;
     }
     input {
       margin-bottom: 21px;
     }
+
     button {
-      height: 50px;
-      width: 246px;
-      border-radius: 25px;
-      background-color: $accent-color;
-      color: $light-color;
-      font-family: Open Sans;
-      font-style: normal;
-      font-weight: 800;
-      font-size: 14px;
-      line-height: 19px;
-      letter-spacing: 0.1em;
       margin-top: 51px;
     }
+
     .collection {
       position: relative;
+      // margin-left: 30px;
       ul {
         height: 200px;
         overflow: scroll;
@@ -113,7 +217,7 @@ main {
 
     .collection:hover::after {
         cursor: pointer;
-        border-top: 9px solid pink;
+        border-top: 9px solid $no-results-color;
       }
 
     .collection::before {
@@ -121,34 +225,22 @@ main {
       position: absolute;
       top: 6px;
       left: 10px;
-      width: 380px;
+      width: 95%;
       height: 50px;
       background-color: $grey;
       border-radius: 4px;
+      @include forSmallPhone {
+      display: none;
     }
-  }
+    }
 
-  .collections {
+    .collections {
       width: 100%;
       position: relative;
       cursor: pointer;
     }
-
-  .flexContainer {
-    display: flex;
-    @include flexCenter;
-    flex-direction: column;
   }
-}
-
-// Display Screen
-.header {
-  .flexContainer {
-    position: fixed;
-    }
   
-  width: 100%;
-  z-index: 10;
   ul {
       position: absolute;
       top: 46px;
@@ -157,32 +249,14 @@ main {
 
     li {
       background-color: $light-color;
-      color: black;
       height: 50px;
-      font-family: Open Sans;
-      font-style: normal;
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 19px;
+      @include fontStyle(14px, $black, $body-font, normal, 600, 19px);
       cursor: pointer;
       padding: 15px 0 15px 20px;
       &:hover {
         background-color: $grey;
       }
     }
-
-    h1 {
-    font-family: Open Sans;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 36px;
-    line-height: 49px;
-    text-align: center;
-    color: $light-color;
-    span {
-      font-weight: 200;
-    }
-  }
 
   h1, form {
     height: max-content;
@@ -201,34 +275,20 @@ main {
 
   .queryForm {
     @include flexCenter;
+    // @include forPhone {
+    //   display: none;
+    // }
     width: 75%;
     .query, .collection {
       width: 50%;
     }
     input, select {
       height: 50px;
-      font-family: Open Sans;
-      font-style: normal;
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 19px;
-      color: black;
+      @include fontStyle(14px, $black, $body-font, normal, 700, 19px);
       padding: 15px 0 15px 20px;
       border-radius: 4px;
     }
-
     button {
-      height: 50px;
-      width: 246px;
-      border-radius: 25px;
-      background-color: $accent-color;
-      color: $light-color;
-      font-family: Open Sans;
-      font-style: normal;
-      font-weight: 800;
-      font-size: 14px;
-      line-height: 19px;
-      letter-spacing: 0.1em;
       margin-left: 52px;
     }
     .collection {
@@ -255,7 +315,7 @@ main {
 
     .collection:hover::after {
         cursor: pointer;
-        border-top: 9px solid pink;
+        border-top: 9px solid $no-results-color;
       }
 
     .collection::before {
@@ -276,32 +336,47 @@ main {
     }
   }
 
-  .flexContainer {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+  .iconContainer {
+    font-size: 5rem;
+    margin-right: 8%;
+    cursor: pointer;
+    &:hover {
+      color: $no-results-color
+    }
   }
+
+  .hamburgerLogoContainer {
+     margin-left: 8%;
+  }
+
+  // .flexContainer {
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: space-around;
+  // }
 }
 
+// MAIN STYLES
 .imageList {
   columns: 3 100px;
   column-gap: 10px;
   
   li {
-    background-color: red;
     margin-bottom: 10px;
   }
 
   .image {
     position: relative;
+    cursor: pointer;
   }
+
   .imageOverlay {
       position: absolute;
       width: 100%;
       height: 100%;
       top: 0;
       left: 0;
-      background-color: #050417;
+      background-color: $dark-color;
       opacity: 0.6;
       display: none;
   }
@@ -319,51 +394,58 @@ main {
   position: relative;
 }
 
-// LOADING SCREEN
+// ****************************************** //
+//              LOADING SCREEN                //
+// ****************************************** //
 .loading {
   height: 100vh;
-  background-color: blueviolet;
 }
 
-   .svgLoader {
-      animation: spin 0.5s linear infinite;
-      margin: auto;
-    }
-    .divLoader {
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+.svgLoader {
+  animation: spin 0.5s linear infinite;
+  margin: auto;
+}
 
-// NO RESULTS SCREEN
-.noResults {
-  background: rgba(255,74,74,0.1);
-  border-radius: 4px;
-  height: 62px;
+.divLoader {
+  width: 100vw;
+  height: 100vh;
   display: flex;
   align-items: center;
-  padding-left: 30px;
-  p {
-    color: #FF4A4A;
-  }
-  font-family: Open Sans;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 19px;
+  justify-content: center;
+  z-index: 9999;
 }
 
-// MODAL
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// ****************************************** //
+//              NO RESULTS SCREEN             //
+// ****************************************** //
+.noResults {
+  background: rgba(255,74,74,0.1);
+  @include fontStyle(14px, $no-results-color, $body-font, normal, 700, 19px);
+  border-radius: 4px;
+  // height: 62px;
+  // display: flex;
+  // align-items: center;
+  // padding-left: 30px;
+  padding: 15px;
+  p {
+    color: $no-results-color;
+    &:first-of-type {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+// ****************************************** //
+//                   MODAL                    //
+// ****************************************** //
 .modalContainer {
   position: fixed;
-  background-color: rgba(255, 255, 255, 0);
+  // background-color: $overlay-color;
   top:0;
   left: 0;
   bottom: 0;
@@ -378,6 +460,12 @@ main {
   .modal {
     background-color: $light-color;
     padding: 20px;
+    @include forSmallPhone {
+      max-width: 100%
+    }
+  }
+  @include forSmallPhone {
+    padding: 20px;
   }
 }
 
@@ -391,7 +479,7 @@ main {
 
 .overlay::before {
   content: "";
-  background-color: rgba(5, 4, 23, 0.8);
+  background-color: $overlay-color;
   position: fixed;
   top: 0;
   left: 0;
@@ -412,6 +500,9 @@ main {
   img {
     border-radius: 50%;
   }
+  @include forSmallPhone {
+      width: 40px;
+    }
 }
 
 .imageInfo {
@@ -427,20 +518,19 @@ main {
 }
 
 .name {
-  font-family: Open Sans;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 30px;
-  line-height: 41px;
+  @include fontStyle(30px, $black, $body-font, normal, 700, 41px);
+  @include forSmallPhone {
+      font-size: 20px;
+      line-height: normal;
+    }
 }
 
 .social {
-  font-family: Open Sans;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 27px;
-  color: #2A2B8D;
+  @include fontStyle(20px, $accent-color, $body-font, normal, 700, 27px);
+  @include forSmallPhone {
+      font-size: 16px;
+      line-height: normal;
+    }
 }
 
 

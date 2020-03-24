@@ -180,8 +180,9 @@ legend, button::-moz-focus-inner, input::-moz-focus-inner {
   overflow: hidden;
 }
 
-/*VARIABLES*/
-/*FONT*/
+/* VARIABLES */
+/* FONT */
+/* REMOVE DEFAULTS */
 body, h1, h2, h3, p, ul, li {
   margin: 0;
   padding: 0;
@@ -213,13 +214,13 @@ textarea {
   border: none;
 }
 
-/*MAIN STYLING*/
+/* GENERAL STYLES */
 html {
   font-size: 62.5%;
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 .wrapper {
@@ -234,20 +235,29 @@ img {
   display: block;
 }
 
-main {
-  min-height: 80vh;
-}
-
-footer {
-  min-height: 10vh;
-}
-
 button {
   text-transform: uppercase;
+  height: 50px;
+  width: 246px;
+  border-radius: 25px;
+  font-size: 14px;
+  color: #FFFFFF;
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 19px;
+  background-color: #2A2B8D;
+  letter-spacing: 0.1em;
 }
 
-/* Skip-line for accessibility */
-/* Global Styles End Here */
+button:hover, button:focus {
+  background: #393bc0;
+}
+
+.notVisible {
+  display: none;
+}
+
 .header {
   position: relative;
 }
@@ -294,30 +304,30 @@ main {
 
 .queryScreen li {
   background-color: #FFFFFF;
-  color: black;
+  font-size: 14px;
+  color: #000000;
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 19px;
   width: 400px;
   height: 50px;
-  font-family: Open Sans;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 19px;
   cursor: pointer;
   padding: 15px 0 15px 20px;
 }
 
-.queryScreen li:hover {
+.queryScreen li:hover, .queryScreen li:focus {
   background-color: #D5D7E5;
 }
 
 .queryScreen h1 {
-  font-family: Open Sans;
-  font-style: normal;
-  font-weight: bold;
   font-size: 36px;
+  color: #FFFFFF;
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 700;
   line-height: 49px;
   text-align: center;
-  color: #FFFFFF;
   margin-bottom: 51px;
   margin-top: 14px;
 }
@@ -362,17 +372,29 @@ main {
           flex-direction: column;
 }
 
+@media (max-width: 525px) {
+  .queryScreen .queryForm {
+    width: 60%;
+  }
+}
+
 .queryScreen .queryForm input, .queryScreen .queryForm select {
   width: 400px;
   height: 50px;
-  font-family: Open Sans;
-  font-style: normal;
-  font-weight: 600;
   font-size: 14px;
+  color: #000000;
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 700;
   line-height: 19px;
-  color: black;
   padding: 15px 0 15px 20px;
   border-radius: 4px;
+}
+
+@media (max-width: 525px) {
+  .queryScreen .queryForm input, .queryScreen .queryForm select {
+    width: 100%;
+  }
 }
 
 .queryScreen .queryForm input {
@@ -380,17 +402,6 @@ main {
 }
 
 .queryScreen .queryForm button {
-  height: 50px;
-  width: 246px;
-  border-radius: 25px;
-  background-color: #2A2B8D;
-  color: #FFFFFF;
-  font-family: Open Sans;
-  font-style: normal;
-  font-weight: 800;
-  font-size: 14px;
-  line-height: 19px;
-  letter-spacing: 0.1em;
   margin-top: 51px;
 }
 
@@ -401,6 +412,25 @@ main {
 .queryScreen .queryForm .collection ul {
   height: 200px;
   overflow: scroll;
+}
+
+@media (max-width: 525px) {
+  .queryScreen .queryForm .collection ul {
+    width: 100%;
+    height: 150px;
+  }
+}
+
+@media (max-width: 525px) {
+  .queryScreen .queryForm .collection li {
+    width: 100%;
+  }
+}
+
+@media (max-width: 525px) {
+  .queryScreen .queryForm .collection {
+    width: 100%;
+  }
 }
 
 .queryScreen .queryForm .collection::after {
@@ -418,7 +448,7 @@ main {
 
 .queryScreen .queryForm .collection:hover::after {
   cursor: pointer;
-  border-top: 9px solid pink;
+  border-top: 9px solid #FF4A4A;
 }
 
 .queryScreen .queryForm .collection::before {
@@ -430,6 +460,12 @@ main {
   height: 50px;
   background-color: #D5D7E5;
   border-radius: 4px;
+}
+
+@media (max-width: 525px) {
+  .queryScreen .queryForm .collection::before {
+    display: none;
+  }
 }
 
 .queryScreen .collections {
@@ -455,13 +491,132 @@ main {
           flex-direction: column;
 }
 
+@media (max-width: 525px) {
+  .queryScreen .flexContainer {
+    width: 100%;
+  }
+}
+
 .header {
   width: 100%;
   z-index: 10;
 }
 
 .header .flexContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   position: fixed;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+@media (max-width: 700px) {
+  .header .flexContainer {
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+}
+
+.header .hamburgerQueryForm {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 120px;
+  left: 0;
+  background-color: #050417;
+  padding-bottom: 93px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.header .hamburgerQueryForm .query, .header .hamburgerQueryForm .collection, .header .hamburgerQueryForm button {
+  width: 60%;
+}
+
+.header .hamburgerQueryForm input, .header .hamburgerQueryForm select {
+  height: 50px;
+  font-size: 14px;
+  color: #000000;
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 19px;
+  padding: 15px 0 15px 20px;
+  border-radius: 4px;
+}
+
+.header .hamburgerQueryForm input {
+  margin-bottom: 21px;
+}
+
+.header .hamburgerQueryForm button {
+  margin-top: 51px;
+}
+
+.header .hamburgerQueryForm .collection {
+  position: relative;
+}
+
+.header .hamburgerQueryForm .collection ul {
+  height: 200px;
+  overflow: scroll;
+}
+
+.header .hamburgerQueryForm .collection::after {
+  content: '';
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-top: 9px solid #050417;
+  border-radius: 2px;
+}
+
+.header .hamburgerQueryForm .collection:hover::after {
+  cursor: pointer;
+  border-top: 9px solid #FF4A4A;
+}
+
+.header .hamburgerQueryForm .collection::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 10px;
+  width: 95%;
+  height: 50px;
+  background-color: #D5D7E5;
+  border-radius: 4px;
+}
+
+@media (max-width: 525px) {
+  .header .hamburgerQueryForm .collection::before {
+    display: none;
+  }
+}
+
+.header .hamburgerQueryForm .collections {
+  width: 100%;
+  position: relative;
+  cursor: pointer;
 }
 
 .header ul {
@@ -472,12 +627,12 @@ main {
 
 .header li {
   background-color: #FFFFFF;
-  color: black;
   height: 50px;
-  font-family: Open Sans;
+  font-size: 14px;
+  color: #000000;
+  font-family: "Open Sans", sans-serif;
   font-style: normal;
   font-weight: 600;
-  font-size: 14px;
   line-height: 19px;
   cursor: pointer;
   padding: 15px 0 15px 20px;
@@ -485,20 +640,6 @@ main {
 
 .header li:hover {
   background-color: #D5D7E5;
-}
-
-.header h1 {
-  font-family: Open Sans;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 36px;
-  line-height: 49px;
-  text-align: center;
-  color: #FFFFFF;
-}
-
-.header h1 span {
-  font-weight: 200;
 }
 
 .header h1, .header form {
@@ -546,28 +687,17 @@ main {
 
 .header .queryForm input, .header .queryForm select {
   height: 50px;
-  font-family: Open Sans;
-  font-style: normal;
-  font-weight: 600;
   font-size: 14px;
+  color: #000000;
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 700;
   line-height: 19px;
-  color: black;
   padding: 15px 0 15px 20px;
   border-radius: 4px;
 }
 
 .header .queryForm button {
-  height: 50px;
-  width: 246px;
-  border-radius: 25px;
-  background-color: #2A2B8D;
-  color: #FFFFFF;
-  font-family: Open Sans;
-  font-style: normal;
-  font-weight: 800;
-  font-size: 14px;
-  line-height: 19px;
-  letter-spacing: 0.1em;
   margin-left: 52px;
 }
 
@@ -596,7 +726,7 @@ main {
 
 .header .queryForm .collection:hover::after {
   cursor: pointer;
-  border-top: 9px solid pink;
+  border-top: 9px solid #FF4A4A;
 }
 
 .header .queryForm .collection::before {
@@ -616,15 +746,18 @@ main {
   cursor: pointer;
 }
 
-.header .flexContainer {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+.header .iconContainer {
+  font-size: 5rem;
+  margin-right: 8%;
+  cursor: pointer;
+}
+
+.header .iconContainer:hover {
+  color: #FF4A4A;
+}
+
+.header .hamburgerLogoContainer {
+  margin-left: 8%;
 }
 
 .imageList {
@@ -635,12 +768,12 @@ main {
 }
 
 .imageList li {
-  background-color: red;
   margin-bottom: 10px;
 }
 
 .imageList .image {
   position: relative;
+  cursor: pointer;
 }
 
 .imageList .imageOverlay {
@@ -668,7 +801,6 @@ main {
 
 .loading {
   height: 100vh;
-  background-color: blueviolet;
 }
 
 .svgLoader {
@@ -716,29 +848,26 @@ main {
 
 .noResults {
   background: rgba(255, 74, 74, 0.1);
-  border-radius: 4px;
-  height: 62px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding-left: 30px;
-  font-family: Open Sans;
-  font-style: normal;
-  font-weight: 600;
   font-size: 14px;
+  color: #FF4A4A;
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 700;
   line-height: 19px;
+  border-radius: 4px;
+  padding: 15px;
 }
 
 .noResults p {
   color: #FF4A4A;
 }
 
+.noResults p:first-of-type {
+  margin-bottom: 10px;
+}
+
 .modalContainer {
   position: fixed;
-  background-color: rgba(255, 255, 255, 0);
   top: 0;
   left: 0;
   bottom: 0;
@@ -765,6 +894,18 @@ main {
 .modalContainer .modal {
   background-color: #FFFFFF;
   padding: 20px;
+}
+
+@media (max-width: 525px) {
+  .modalContainer .modal {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 525px) {
+  .modalContainer {
+    padding: 20px;
+  }
 }
 
 .overlay {
@@ -807,6 +948,12 @@ main {
   border-radius: 50%;
 }
 
+@media (max-width: 525px) {
+  .profileImage {
+    width: 40px;
+  }
+}
+
 .imageInfo {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -831,18 +978,33 @@ main {
 }
 
 .name {
-  font-family: Open Sans;
-  font-style: normal;
-  font-weight: bold;
   font-size: 30px;
+  color: #000000;
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 700;
   line-height: 41px;
 }
 
+@media (max-width: 525px) {
+  .name {
+    font-size: 20px;
+    line-height: normal;
+  }
+}
+
 .social {
-  font-family: Open Sans;
-  font-style: normal;
-  font-weight: bold;
   font-size: 20px;
-  line-height: 27px;
   color: #2A2B8D;
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 27px;
+}
+
+@media (max-width: 525px) {
+  .social {
+    font-size: 16px;
+    line-height: normal;
+  }
 }
