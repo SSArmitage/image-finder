@@ -1,5 +1,6 @@
 
-# Image Finder
+# Image Finder 
+
 Search Unsplash images based on:
 * Enter keyword alone
 * Enter collection alone
@@ -15,6 +16,10 @@ Search Unsplash images based on:
 ## Versioning
 Used git!
 
+## View Live
+https://ssarmitage.github.io/image-finder/
+
+## Preview
 <img width="1227" alt="Screen Shot 2020-03-15 at 7 42 41 PM" src="https://user-images.githubusercontent.com/48597469/76713182-5b1efe80-66f5-11ea-90ec-85fdccde7098.png">
 <img width="1258" alt="Screen Shot 2020-03-15 at 7 42 16 PM" src="https://user-images.githubusercontent.com/48597469/76713200-7558dc80-66f5-11ea-8598-15a389af09b6.png">
 <img width="1265" alt="Screen Shot 2020-03-15 at 7 41 58 PM" src="https://user-images.githubusercontent.com/48597469/76713220-7f7adb00-66f5-11ea-940f-1543fb3d4269.png">
