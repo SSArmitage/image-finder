@@ -468,6 +468,7 @@ class Header extends Component {
                         <img src={logo} alt=""></img>
                     </div>
                     <form className="queryForm" onSubmit={this.handleSubmit}>
+                        <h1 className="title">image <span>search</span></h1>
                         <label for="query"></label>
                         <input
                             type="text"

@@ -81,8 +81,10 @@ main {
       ul {
         height: 200px;
         overflow: scroll;
+        width: 100%;
+        border-radius: 0 0 4px 4px;
         @include forSmallPhone {
-          width: 100%;
+          // width: 100%;
           height: 150px;
         }
       }
@@ -161,6 +163,18 @@ main {
       justify-content: space-between;
     }
   }
+  h1 {
+    @media (min-width: 700px) {
+      display: none;
+    }
+    @include fontStyle(36px, $light-color, $body-font, normal, 700, 49px);
+    text-align: center;
+    margin-bottom: 51px;
+    margin-top: 14px;
+    span {
+      font-weight: 200;
+    }
+  }
   .hamburgerQueryForm {
     position: fixed;
     width: 100%;
@@ -198,7 +212,14 @@ main {
       // margin-left: 30px;
       ul {
         height: 200px;
+        width: 100%;
         overflow: scroll;
+        background-color: $light-color;
+        border-radius: 0 0 4px 4px;
+        @include forPhone {
+          // width: 100%;
+          height: 150px;
+        }
       }
     }
 
@@ -245,6 +266,7 @@ main {
       position: absolute;
       top: 46px;
       width: 100%;
+      border-radius: 0 0 4px 4px;
     }
 
     li {
@@ -357,6 +379,12 @@ main {
 }
 
 // MAIN STYLES
+.mainContainer {
+  width: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 .imageList {
   columns: 3 100px;
   column-gap: 10px;

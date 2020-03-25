@@ -87,16 +87,18 @@ class App extends Component {
         <main>
           {this.state.userSelectedVariables
             ?
-            <div>
+            <div className="mainContainer">
               {this.state.isLoading
               ?
-                <Loader
-                  type="ThreeDots"
-                  color="#2A2B8D"
-                  height={100}
-                  width={100}
-                  timeout={2000} //3 secs
-                />
+                <div>
+                  <Loader
+                    type="ThreeDots"
+                    color="#2A2B8D"
+                    height={100}
+                    width={100}
+                    timeout={2000} //3 secs
+                  />
+                </div>
               :
                 <DisplayScreen
                   imageInfo={this.state.imageInfo}
